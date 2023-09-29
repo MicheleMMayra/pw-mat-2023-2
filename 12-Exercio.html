@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
+
 <body>
 
   <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  
+
   <div id="root"></div>
 
   <script type="text/babel">
@@ -32,60 +34,49 @@
       Este exercício contará para a nota de Participação e Assiduidade (PA).
     */
     function Form() {
-      //input 
-        const valorReaisRef = React.useRef()
-        const contacaoDolarRef  = React.useRef() 
-
-        const resultadoRef = React.useRef()
-        
-        let valorReais, contacaoDolar, resultado 
+      const [valor, valorset] = React.useState()
+      const [cotacao, cotacaoset] = React.useState()
 
 
-        function handleChanget(event) {
-        let valorReais = Number(valorReais.current.value)
-        let cotacaoDolar = Number(cotacaoDolar.current.value)//Elemento/valor 
-
-        //converter pra número. 
-        let convertido = valorReais / contacaoDolar
-
-        ResultadoRef.current.textContent = convertido.toLocaleString(
-            //usa as convenções de separador de milhar e decimal 
-            //da lingua inglesa. Português do Brasil é pt-BR 
-            'en-US', 
-            //USD ~> Dólar americano ($) Real brasileiro é BRL 
-            {style: 'currency', currency: 'USD'}
-        ) 
-
-      }
 
 
-        return (
+
+
+      //converter pra número. 
+      let convertido = valor/ cotacao
+
+
+
+      return (
         <>
           <h1>Conversor de real para dólar</h1>
           <form>
             <div>
               <label>
-                <span>Valor em reais</span><br/>
-                <input ref={valorReaisRef} onChange={handleChange} type="number" />
+                <span>Valor em reais</span><br />
+                <input value={valor} onChange={event => valorset(event.target.value)} type="number" />
               </label>
             </div>
             <div>
               <label>
-                <span>Cotação do dólar</span><br/>
-                <input ref={cotacaoDolarRef} onChange={handleChange} type="number" />
+                <span>Cotação do dólar</span><br />
+                <input value={cotacao} onChange={event => cotacaoset(event.target.value)} type="number" />
               </label>
             </div>
-            <div ref={ResultadoRef}></div>
+            <div>
+              Valor da cotação do dólar: {convertido}
+              </div>
           </form>
         </>
       )
     }
-    
+
 
     const root = ReactDOM.createRoot(document.getElementById('root'))
     root.render(<Form />)
 
   </script>
-  
+
 </body>
+
 </html>

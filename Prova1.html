@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cálculo do Índice de Massa Corporal (IMC)</title>
+</head>
+<body>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <div id="root"></div>
+  
+    <script type="text/babel">
+  
+    
+      function Form() {
+        //input 
+          const pesoRef = React.useRef()
+          const alturaRef  = React.useRef() 
+          const imcRef  = React.useRef()
+  
+          const resultadoRef = React.useRef()
+          
+          let peso, altura, imc, resultado 
+  
+  
+          function handleChanget(event) {
+          let peso = Number(peso.current.value)
+          let altura= Number(altura.current.value)//Elemento/valor 
+  
+          //converter pra IMC. 
+          let imc = Number(peso) / Number(altura) ** 2
+          
+          ResultadoRef.current.textContent = 
+            ('IMC: ' + imc.toLocaleString('pt-BR', { 
+             minimumFractionDigits: 4, 
+             maximumFractionDigits: 4 
+            })
+              //da língua Português do Brasil é pt-BR  
+              //{style: 'currency', currency: 'pt-BR'}
+          ) 
+  
+        }
+  
+  
+          return (
+          <>
+            <h1>Cálculo do Índice de Massa Corporal</h1>
+            <form>
+              <div>
+                <label>
+                  <span>Peso:</span><br/>
+                  <input ref={valorReaisRef} onChange={handleChange} type="number" />
+                </label>
+              </div>
+              <div>
+                <label>
+                  <span>Altura:</span><br/>
+                  <input ref={cotacaoDolarRef} onChange={handleChange} type="number" />
+                </label>
+              </div>
+              <div ref={resultadoRef}></div>
+            </form>
+          </>
+        )
+      }
+      
+  
+      const root = ReactDOM.createRoot(document.getElementById('root'))
+      root.render(<Form />)
+  
+    </script>
+</body>
+</html>
+
